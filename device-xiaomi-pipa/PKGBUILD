@@ -1,0 +1,50 @@
+pkgname=device-xiaomi-pipa
+pkgdesc="Package containing configurations for Xiaomi Pad 6"
+pkgver=3
+pkgrel=3
+url="https://postmarketos.org"
+license=('MIT')
+arch=('aarch64')
+depends=(
+	'bootmac'
+	'hexagonrpcd'
+	'pipa-kernel-hooks'
+	'linux-pipa'
+	'mesa'
+	'mkbootimg'
+	'qbootctl'
+	'iio-sensor-proxy'
+)
+source=(
+	'81-libssc-xiaomi-pipa.rules'
+	'xiaomi-pipa.conf'
+	'hifi.conf'
+	'hexagonrpcd.confd'
+)
+sha512sums=(
+	'2c16ba75e0077b2b1eaefa4c73b287475505a1aeb291ec29316d41cc094277320f9d2aaabfd91eb1dc0f488ab2d61a94faef16e7afe0f1e226779113761b9a37'
+	'489ef489c11c632491943c348ef10c7d1a8679969ba08869e6aee295a716bce00ec34b9fe3b745ea1dbf03b79caca10265ec15d99048b88d660f01b99647773e'
+	'afdaf3490c7dc8300e0bfbcf156379a8043df48cf3bc2401340d9ae2455d9e2a3e150815535e72ed5338aab124dbf3ae2844cf0fad8104f3549a1d69f400a10c'
+	'7db4a5c9f9b9b03ec0448d1999fa990fc2b1d9f0245801539c53e3d0265c04cf4b91166385930f43fee5fc99cbaf70c90d564f5be3e7950caebf9974f3869144'
+)
+
+package() {
+	# Install udev rules
+	install -Dm644 "${srcdir}/81-libssc-xiaomi-pipa.rules" "${pkgdir}/usr/lib/udev/rules.d/81-libssc-xiaomi-pipa.rules"
+
+	# Add hexagonrpcd related configs
+	install -Dm644 "$srcdir"/hexagonrpcd.confd "$pkgdir"/etc/conf.d/hexagonrpcd-sdsp
+	install -Dm644 "$srcdir"/hexagonrpcd.confd "$pkgdir"/etc/conf.d/hexagonrpcd-adsp-rootpd
+	install -Dm644 "$srcdir"/hexagonrpcd.confd "$pkgdir"/etc/conf.d/hexagonrpcd-adsp-sensorpd
+		
+	# Install ALSA UCM configuration for Xiaomi Pad 6
+	# /usr/share/alsa/ucm2/conf.d/sm8250/Xiaomi Pad 6.conf  
+	mkdir -p "${pkgdir} /usr/share/alsa/ucm2/conf.d/sm8250/"
+	install -Dm644 "${srcdir}/xiaomi-pipa.conf" "${pkgdir}/usr/share/alsa/ucm2/conf.d/sm8250/Xiaomi Pad 6.conf"
+
+	# /usr/share/alsa/ucm2/Qualcomm/sm8250/HiFi_pipa.conf
+	mkdir -p "${pkgdir}/usr/share/alsa/ucm2/Qualcomm/sm8250/"
+	install -Dm644 "${srcdir}/hifi.conf" "${pkgdir}/usr/share/alsa/ucm2/Qualcomm/sm8250/HiFi_pipa.conf"
+}
+
+

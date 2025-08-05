@@ -1,0 +1,58 @@
+# Maintainer: Filipe Laíns (FFY00) <lains@archlinux.org>
+# Contributor: Eric Lehmann <katyl@katyl.info>
+# Contributor: Thomas Fanninger <thomas@fanninger.at>
+# Contributor: ultraviolet <ultravioletnanokitty@gmail.com>
+# Contributor: Pablo Lezeta <prflr88@gmail.com>
+pkgname=iio-sensor-proxy-libssc
+pkgver=3.7
+pkgrel=2
+pkgdesc='IIO accelerometer sensor to input device proxy'
+arch=('x86_64' 'aarch64')
+url='https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/'
+license=('GPL2')
+depends=('systemd' 'libgudev' 'glib2' 'polkit' 'libssc')
+makedepends=('gtk3' 'meson')
+checkdepends=('python-gobject' 'python-dbusmock' 'python-psutil' 'umockdev')
+# https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/-/archive/ssc/iio-sensor-proxy-ssc.tar.gz
+_branch=ssc
+_pkgname=iio-sensor-proxy
+source=("$url/-/archive/$_branch/$_pkgname-$_branch.tar.gz")
+sha512sums=('SKIP')
+
+build() {
+  mkdir $_pkgname-$_branch/build
+  cd $_pkgname-$_branch/build
+
+  arch-meson .. \
+    -Dsystemdsystemunitdir=/usr/lib/systemd/system \
+    -Dudevrulesdir=/usr/lib/udev/rules.d \
+    -Dsysconfdir=/usr/share
+
+  ninja
+}
+
+check() {
+  cd $_pkgname-$_branch/build
+
+#  needs French locale
+#  ninja test
+}
+
+package() {
+  provides=(iio-sensor-proxy)
+  conflicts=(iio-sensor-proxy)
+  
+  cd $_pkgname-$_branch/build
+   
+  DESTDIR="$pkgdir" ninja install
+
+  # Add override for it to always restart
+  install -d "$pkgdir/etc/systemd/system/iio-sensor-proxy.service.d"
+  cat > "$pkgdir/etc/systemd/system/iio-sensor-proxy.service.d/override.conf" <<EOF
+[Service]
+Restart=always
+RestartSec=5
+EOF
+  
+}
+

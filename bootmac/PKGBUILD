@@ -1,0 +1,35 @@
+# Maintainer: Dylan Van Assche <me@dylanvanassche.be>
+pkgname=bootmac
+pkgver=0.6.0
+pkgrel=2
+pkgdesc="Configure MAC addresses at boot"
+arch=('any')
+url="https://gitlab.postmarketos.org/postmarketOS/bootmac"
+license=('GPL3')
+depends=('bluez-git')
+source=("https://gitlab.postmarketos.org/postmarketOS/bootmac/-/archive/v$pkgver/bootmac-v$pkgver.tar.gz")
+sha512sums=('164f35b2e008aa0f7b7ad42338e46d8fdac1ec2d4403123b390706437603b1d2060659130a477823734fbda56fa45e9987fb9a2c08cf1e87adebea979e634bbb')
+
+package() {
+	cd "$srcdir/$pkgname-v$pkgver"
+	
+	# Install udev rules
+	install -Dm644 bootmac-bluetooth.rules \
+		"$pkgdir/usr/lib/udev/rules.d/90-bootmac-bluetooth.rules"
+
+	install -Dm644 bootmac-wifi.rules \
+		"$pkgdir/usr/lib/udev/rules.d/90-bootmac-wifi.rules"
+	
+	# Install main binary
+	install -Dm755 bootmac \
+		"$pkgdir/usr/bin/bootmac"
+	
+	# Install systemd service
+	install -Dm644 bootmac-bluetooth.service \
+		"$pkgdir/usr/lib/systemd/system/bootmac-bluetooth.service"
+
+	# Enable the systemd service
+	install -d "$pkgdir/etc/systemd/system/multi-user.target.wants"
+	ln -sf /usr/lib/systemd/system/bootmac-bluetooth.service \
+	    "$pkgdir/etc/systemd/system/multi-user.target.wants/bootmac-bluetooth.service"
+}

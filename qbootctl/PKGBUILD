@@ -1,0 +1,30 @@
+pkgname="qbootctl"
+pkgdesc="Qualcomm bootctl HAL for Linux"
+pkgver=0.2.2
+pkgrel=0
+arch=("aarch64")
+url="https://github.com/linux-msm/qbootctl"
+license=("GPL3")
+depends=("glibc" "zlib" "gcc-libs")
+makedepends=("git" "meson" "gcc")
+source=("git+https://github.com/linux-msm/qbootctl.git"
+		"qbootctl.service")
+sha256sums=("SKIP"
+			"dbb2f86b9bdff8809c475c4888860c2a3b4b10b9d0d3d0c73a151ce51f5cda8b")
+
+build() {
+	arch-meson "$pkgname" build
+	meson compile -C build
+}
+
+package() {
+	meson install -C build --destdir "$pkgdir"
+	install -Dm644 "$pkgname/LICENSE" "$pkgdir"/usr/share/licenses/$pkgname/LICENSE
+	install -Dm644 qbootctl.service "$pkgdir"/usr/lib/systemd/system/qbootctl.service
+
+	# Enable the service aswell
+	install -d "$pkgdir/etc/systemd/system/multi-user.target.wants"
+	ln -s /usr/lib/systemd/system/qbootctl.service \
+	      "$pkgdir/etc/systemd/system/multi-user.target.wants/qbootctl.service"
+	
+}

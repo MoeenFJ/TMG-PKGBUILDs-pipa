@@ -1,0 +1,142 @@
+# Maintainer: Arseniy Velikanov <me@adomerle.pw>
+
+pkgbase=linux-firmware-pipa
+pkgname=(
+    linux-firmware-pipa-adreno
+    linux-firmware-pipa-adsp
+    linux-firmware-pipa-cdsp
+    linux-firmware-pipa-awinic
+    linux-firmware-pipa-nuvolta
+    linux-firmware-pipa-novatek
+    linux-firmware-pipa-hexagonfs
+    linux-firmware-pipa-slpi
+    linux-firmware-pipa-venus
+)
+
+_srcdir="xiaomi-pipa-firmware-$_commit"
+pkgver=20241230
+pkgrel=1
+pkgdesc="Firmware files for Xiaomi Pad 6 (pipa)"
+url="https://github.com/pipa-mainline/xiaomi-pipa-firmware"
+arch=('any')
+license=('custom')
+makedepends=(
+    git
+)
+options=(
+    !strip
+    !debug
+)
+
+_commit="842d35beffeda8c6d1b0e611b335543bf0e6b41e"
+
+source=(
+    "$pkgbase-$pkgver.tar.gz::$url/archive/$_commit.tar.gz"
+    "hexagon_firmware.files"
+)
+
+sha512sums=(
+    'cbd61052dd5ddc54ed9290547ab4a63eca59cf113d5b3b0f5d64248b48e3e5616a12bc1296abe05d3ab3556054c3541b2cd5b6fa9d797bc49a5e6f32d5bea961'
+    'f208de5e943e26654eb3f09f8a7875f415eac1c3b52aef47897e3b4824a29749bc394b8bb471c476230a64a60781fb31467795fb92af5bbb658a224ee5da4f71'
+)
+
+_srcdir="xiaomi-pipa-firmware-$_commit"
+
+_pick() {
+    local p="$1" f d; shift
+    for f; do
+        d="$srcdir/$p/${f#$pkgdir/}"
+        mkdir -p "$(dirname "$d")"
+        mv "$f" "$d"
+        rmdir -p --ignore-fail-on-non-empty "$(dirname "$f")"
+    done
+}
+
+# xiaomi pipa boots with secure boot, it can only load signed firmwares.
+package_linux-firmware-pipa-adreno() {
+    pkgdesc="Xiaomi Pad 6 Adreno firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/sm8250/xiaomi/pipa/a650_zap.mbn -t \
+        "$pkgdir/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/"
+}
+
+package_linux-firmware-pipa-adsp() {
+    pkgdesc="Xiaomi Pad 6 adsp firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/sm8250/xiaomi/pipa/adsp* -t \
+        "$pkgdir/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/"
+}
+
+package_linux-firmware-pipa-cdsp() {
+    pkgdesc="Xiaomi Pad 6 cdsp firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/sm8250/xiaomi/pipa/cdsp* -t \
+        "$pkgdir/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/"
+}
+
+package_linux-firmware-pipa-awinic() {
+    pkgdesc="Xiaomi Pad 6 awinic firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/awinic/aw88230_2113_pipa.bin -t \
+        "$pkgdir/usr/lib/firmware/awinic/"
+}
+
+package_linux-firmware-pipa-nuvolta() {
+    pkgdesc="Xiaomi Pad 6 nuvolta firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/nuvolta/rx1665.bin -t \
+        "$pkgdir/usr/lib/firmware/nuvolta/"
+}
+
+package_linux-firmware-pipa-novatek() {
+    pkgdesc="Xiaomi Pad 6 novatek firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/novatek/nt36532_csot.bin -t \
+        "$pkgdir/usr/lib/firmware/novatek/"
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/novatek/nt36532_tianma.bin -t \
+        "$pkgdir/usr/lib/firmware/novatek/"
+}
+
+package_linux-firmware-pipa-hexagonfs() {
+    pkgdesc="Xiaomi Pad 6 hexagonfs files"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    mkdir -p "$pkgdir"
+
+    while IFS="" read -r _i || [ -n "$_i" ]; do
+        [ ! -d $(dirname $_i) ] && mkdir -p $(dirname $_i)
+        install -Dm644 "$srcdir/$_srcdir/$_i" "$pkgdir/$_i"
+    done < "$srcdir/hexagon_firmware.files"
+}
+
+package_linux-firmware-pipa-slpi() {
+    pkgdesc="Xiaomi Pad 6 slpi firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/sm8250/xiaomi/pipa/slpi* -t \
+        "$pkgdir/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/"
+}
+
+package_linux-firmware-pipa-venus() {
+    pkgdesc="Xiaomi Pad 6 venus firmware"
+    depends=('linux-firmware-whence')
+    license=('custom')
+
+    install -Dm644 "$srcdir/$_srcdir"/lib/firmware/sm8250/xiaomi/pipa/venus.mbn -t \
+        "$pkgdir/usr/lib/firmware/qcom/sm8250/xiaomi/pipa"
+}

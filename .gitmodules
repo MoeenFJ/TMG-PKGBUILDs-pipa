@@ -1,0 +1,3 @@
+[submodule "bluez-git"]
+	path = bluez-git
+	url = https://aur.archlinux.org/bluez-git

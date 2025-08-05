@@ -1,0 +1,48 @@
+# Compiled package files
+*.pkg.tar.zst
+*.pkg.tar.xz
+*.pkg.tar.gz
+
+# Source tarballs
+*.tar.*
+*.zip
+*.rar
+*.7z
+*.gz
+*.bz2
+*.xz
+*.lz
+*.Z
+
+# Build directories
+pkg/
+src/
+
+# Logs
+*.log
+
+# Temporary files
+*.part
+*.swp
+*.bak
+*~
+.*.swp
+*.tmp
+
+# GPG signatures
+*.sig
+*.asc
+
+# AUR helper artifacts
+*.tar
+*.deb
+*.rpm
+
+# VCS directories (if accidentally copied into repo)
+*.git/
+*.svn/
+*.hg/
+
+# Clean chroot artifacts (optional)
+*.log.*
+*.build

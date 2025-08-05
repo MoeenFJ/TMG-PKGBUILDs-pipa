@@ -1,0 +1,21 @@
+pkgbase = iio-sensor-proxy
+	pkgdesc = IIO accelerometer sensor to input device proxy
+	pkgver = 3.7
+	pkgrel = 1
+	url = https://gitlab.freedesktop.org/hadess/iio-sensor-proxy/
+	arch = x86_64
+	license = GPL2
+	checkdepends = python-gobject
+	checkdepends = python-dbusmock
+	checkdepends = python-psutil
+	checkdepends = umockdev
+	makedepends = gtk3
+	makedepends = meson
+	depends = systemd
+	depends = libgudev
+	depends = glib2
+	depends = polkit
+	source = https://gitlab.freedesktop.org/hadess/iio-sensor-proxy//-/archive/3.7/iio-sensor-proxy-3.7.tar.gz
+	sha512sums = 637cefbb1c9929514f2d9d195c54db76a57252b4037efb01006b8eb6631ccbeebf8a520044b22443e9dcef62d9f2ee610fd7477e55f2fb1e13c4b83c6cdc55c4
+
+pkgname = iio-sensor-proxy

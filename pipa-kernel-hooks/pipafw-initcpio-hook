@@ -1,0 +1,115 @@
+#!/bin/bash
+
+build() {
+    # Dodaj całą strukturę katalogów firmware
+    add_dir "/usr/lib/firmware"
+    
+    # Qualcomm SM8250 (Xiaomi Pad 6)
+    add_file "/usr/lib/firmware/qcom/a650_sqe.fw"
+    add_file "/usr/lib/firmware/qcom/a650_gmu.bin"
+    add_dir "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa"
+
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/a650_zap.mbn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/adspr.jsn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/cdsp.mbn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/slpi.mbn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/slpius.jsn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/adsp.mbn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/adspua.jsn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/cdspr.jsn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/slpir.jsn"
+    add_file "/usr/lib/firmware/qcom/sm8250/xiaomi/pipa/venus.mbn"
+    
+    # QCA (Bluetooth/Ethernet)
+    add_dir "/usr/lib/firmware/qca"
+    
+    # ath11k (Wi-Fi)
+    add_dir "/usr/lib/firmware/ath11k"
+    
+    # Nuvolta (ładowanie?)
+    add_file "/usr/lib/firmware/nuvolta/rx1665.bin"
+    
+    # Ekran i czujniki
+    add_file "/usr/lib/firmware/awinic/aw88230_2113_pipa.bin"
+    add_file "/usr/lib/firmware/novatek/nt36532_csot.bin"
+    add_file "/usr/lib/firmware/novatek/nt36532_tianma.bin"
+    
+    # Regulatory bazy danych
+    add_file "/usr/lib/firmware/regulatory.db"
+    add_file "/usr/lib/firmware/regulatory.db.p7s"
+
+     add_file "/usr/lib/firmware/qca/hpnv21g.309"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130201_gf.bin"
+    add_file "/usr/lib/firmware/qca/nvm_00440302_i2s_eu.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21.bb8"
+    add_file "/usr/lib/firmware/qca/hpnv21.baa"
+    add_file "/usr/lib/firmware/qca/hpnv21g.b10c"
+    add_file "/usr/lib/firmware/qca/htbtfw20.tlv"
+    add_file "/usr/lib/firmware/qca/rampatch_00130302.bin"
+    add_file "/usr/lib/firmware/qca/hmtnv20.bin"
+    add_file "/usr/lib/firmware/qca/nvm_00130302.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21g.ba3"
+    add_file "/usr/lib/firmware/qca/apbtfw11.tlv"
+    add_file "/usr/lib/firmware/qca/hmtnv20.b10f"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130200.bin"
+    add_file "/usr/lib/firmware/qca/apbtfw10.tlv"
+    add_file "/usr/lib/firmware/qca/rampatch_00440302.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21g.b8c"
+    add_file "/usr/lib/firmware/qca/hpnv21g.baa"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00000300.bin"
+    add_file "/usr/lib/firmware/qca/nvm_00440302_eu.bin"
+    add_file "/usr/lib/firmware/qca/crnv32.bin"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130201.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21g.bb8"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130200_0104.bin"
+    add_file "/usr/lib/firmware/qca/hpbtfw21.tlv"
+    add_file "/usr/lib/firmware/qca/apnv10.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21.ba3"
+    add_file "/usr/lib/firmware/qca/rampatch_usb_00190200.bin"
+    add_file "/usr/lib/firmware/qca/apnv11.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21g.ba1"
+    add_file "/usr/lib/firmware/qca/hpnv21.b9f"
+    add_file "/usr/lib/firmware/qca/rampatch_usb_00130201.bin"
+    add_file "/usr/lib/firmware/qca/crnv21.bin"
+    add_file "/usr/lib/firmware/qca/msnv11.b09"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00000200.bin"
+    add_file "/usr/lib/firmware/qca/rampatch_usb_00000300.bin"
+    add_file "/usr/lib/firmware/qca/msbtfw11.tlv"
+    add_file "/usr/lib/firmware/qca/crbtfw21.tlv"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130201_gf_0303.bin"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130200_0107.bin"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00130201_0303.bin"
+    add_file "/usr/lib/firmware/qca/rampatch_usb_00130200.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21.b8c"
+    add_file "/usr/lib/firmware/qca/hpnv21.b10c"
+    add_file "/usr/lib/firmware/qca/crnv32u.bin"
+    add_file "/usr/lib/firmware/qca/nvm_00440302.bin"
+    add_file "/usr/lib/firmware/qca/rampatch_usb_00000302.bin"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00000302.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21.301"
+    add_file "/usr/lib/firmware/qca/nvm_00130300.bin"
+    add_file "/usr/lib/firmware/qca/msnv11.b0a"
+    add_file "/usr/lib/firmware/qca/hpnv21.ba1"
+    add_file "/usr/lib/firmware/qca/msbtfw11.mbn"
+    add_file "/usr/lib/firmware/qca/rampatch_00230302.bin"
+    add_file "/usr/lib/firmware/qca/htnv20.bin"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00000302_eu.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21g.301"
+    add_file "/usr/lib/firmware/qca/nvm_00230302.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21.309"
+    add_file "/usr/lib/firmware/qca/crbtfw32.tlv"
+    add_file "/usr/lib/firmware/qca/msnv11.bin"
+    add_file "/usr/lib/firmware/qca/nvm_usb_00190200.bin"
+    add_file "/usr/lib/firmware/qca/rampatch_usb_00000200.bin"
+    add_file "/usr/lib/firmware/qca/hpnv21g.b9f"
+    add_file "/usr/lib/firmware/qca/rampatch_00130300.bin"
+    add_file "/usr/lib/firmware/qca/hmtbtfw20.tlv"
+
+}
+
+help() {
+    cat <<HELPEOF
+    Dodaje firmware specyficzne dla Xiaomi Pad 6 (SM8250) do initramfs.
+    Wymagane pliki: qcom, ath11k, novatek, awinic.
+HELPEOF
+}
