@@ -1,6 +1,6 @@
 This repository hosts
 [PKGBUILDs](https://wiki.archlinux.org/index.php/PKGBUILD) packages for xiaomi-pipa (also known as Xiaomi Pad 6) running Arch Linux ARM (alarm)
-Packages here are tailored specific to pipa and a hosted repo can be found at [TODO]
+Packages here are tailored specific to pipa and a hosted repo can be found at [pipa-alarm](https://github.com/maakiopus/pipa-alarm/)
 
 These packages are meant to be built on Arch Linux ARM, found at
 http://archlinuxarm.org
