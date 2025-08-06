@@ -3,7 +3,7 @@
 pkgname=(hexagonrpcd)
 pkgdesc="Qualcomm HexagonFS daemon"
 pkgver=0.3.2.r0.gb7eff23
-pkgrel=1
+pkgrel=2
 arch=(any)
 license=(GPL-3.0-or-later)
 url="https://gitlab.com/sdm845-mainline/hexagonrpc/"
@@ -24,9 +24,9 @@ source=(
 sha256sums=(
     58ad8305f9cc06885dd2e589ed8637b1b8428f6930c7f36001b6b4570cfabd81
     41dfc4e8c4fd88f461a5a6e4a4e86849eb302f8bcb2b5ce2efa9690f5415d52d
-    0e5b65dfc3623c286438e26ba75ceb158a68696d07101d62322d94eb33bd258b
-    a48b11bfeac17e32b38e0e69a5276ba192cb9270a296ffc0912fc6d465e1847f
-    db3a5898ed91277223dc1dbbc750e44b77a24626bd744eaac8dde37614c3b30f
+    571ac3582402e31db573177f711af094a3ff25e17c0e40872c79cff28acb13ac
+    c72195c102dde85ef0ed5361d7a88051680c2f05229a5fa3d5aa87bc89435288
+    922b03ae73967e7a7103623e2e888672312093bad86b8f3ca200234d660ef4be
 )
 
 pkgver() {
@@ -53,14 +53,8 @@ package() {
   install -Dm755 "$srcdir"/$pkgname-adsp-sensorspd.service "$pkgdir"/usr/lib/systemd/system/$pkgname-adsp-sensorspd.service
   install -Dm755 "$srcdir"/$pkgname-sdsp.service "$pkgdir"/usr/lib/systemd/system/$pkgname-sdsp.service
 
-  # Enable them by default
+  # Enable hexagonrpcd-sdsp by default, its needed for iio-sensor-proxy
   install -d "$pkgdir/etc/systemd/system/multi-user.target.wants"
-
-  ln -sf /usr/lib/systemd/system/hexagonrpcd-adsp-rootpd.service \
-      "$pkgdir/etc/systemd/system/multi-user.target.wants/hexagonrpcd-adsp-rootpd.service"
-
-  ln -sf /usr/lib/systemd/system/hexagonrpcd-adsp-sensorspd.service \
-      "$pkgdir/etc/systemd/system/multi-user.target.wants/hexagonrpcd-adsp-sensorspd.service"
 
   ln -sf /usr/lib/systemd/system/hexagonrpcd-sdsp.service \
       "$pkgdir/etc/systemd/system/multi-user.target.wants/hexagonrpcd-sdsp.service"

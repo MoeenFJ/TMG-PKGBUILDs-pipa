@@ -9,6 +9,8 @@ User=fastrpc
 Group=fastrpc
 EnvironmentFile=/etc/conf.d/hexagonrpcd-adsp-rootpd
 ExecStart=/usr/bin/hexagonrpcd -f /dev/fastrpc-adsp -R ${hexagonrpcd_fw_dir}
+Restart=always
+RestartSec=2s
 
 [Install]
 WantedBy=multi-user.target
