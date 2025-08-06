@@ -33,12 +33,8 @@ build() {
     add_file "/usr/lib/firmware/awinic/aw88230_2113_pipa.bin"
     add_file "/usr/lib/firmware/novatek/nt36532_csot.bin"
     add_file "/usr/lib/firmware/novatek/nt36532_tianma.bin"
-    
-    # Regulatory bazy danych
-    add_file "/usr/lib/firmware/regulatory.db"
-    add_file "/usr/lib/firmware/regulatory.db.p7s"
 
-     add_file "/usr/lib/firmware/qca/hpnv21g.309"
+    add_file "/usr/lib/firmware/qca/hpnv21g.309"
     add_file "/usr/lib/firmware/qca/nvm_usb_00130201_gf.bin"
     add_file "/usr/lib/firmware/qca/nvm_00440302_i2s_eu.bin"
     add_file "/usr/lib/firmware/qca/hpnv21.bb8"
