@@ -1,0 +1,10 @@
+MangoHud
+mangohud
+mangohud-git
+src
+pkg
+*.tar.xz
+*.tar.gz
+*.pkg.tar.zst
+*.log
+.directory
